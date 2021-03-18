@@ -1,8 +1,12 @@
 call plug#begin()
-  Plug 'preservim/nerdtree'
-  Plug 'tpope/vim-fugitive'
-  Plug 'vim-airline/vim-airline'
-  Plug 'vim-airline/vim-airline-themes'
+Plug 'preservim/nerdtree'
+Plug 'tpope/vim-fugitive'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'tpope/vim-surround'
+Plug 'dhruvasagar/vim-dotoo'
 call plug#end()
 
 if has('gui_running')
@@ -50,14 +54,38 @@ set noswapfile
 set number
 set ruler
 syntax on
+set hidden
 set wildmenu "a better menu in command mode
-
-set pythonthreedll=python38.dll
 set clipboard=unnamed
 set encoding=utf-8
+set lines=999 columns=999 " full windows
+
+set shortmess=a
+set cmdheight=2
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" PYTHON RELATED
+
+set pythonthreedll=python38.dll
+
+" run script in normal/insert mode with F9
+autocmd FileType python map <buffer> <F9> :w<CR>:exec '!python' shellescape(@%, 1)<CR>i
+autocmd FileType python imap <buffer> <F9> <esc>:w<CR>:exec '!python' shellescape(@%, 1)<CR>i
+
+
+
+
+" CtrlP
+"
+let g:ctrlp_cmd='CtrlP :pwd'
+
 
 " KEYS
-tnoremap <Esc> <C-\><C-n>
+tnoremap <Esc> <C-\><C-n> " Switch back to normal mode from terminal
+" switching between buffers with TAB ans Shift+TAB
+nnoremap  <silent>   <tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bnext<CR>
+nnoremap  <silent> <s-tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bprevious<CR>
+
 
 " AIRLINE 
 let g:airline#extensions#tabline#enabled = 1
@@ -69,5 +97,15 @@ if !exists('g:airline_symbols')
 endif
 if !exists('g:airline_symbols')
         let g:airline_symbols = {}
-    endif
+endif
+
+
+" COC-NVIM
+"
+" Confirm the completion with <CR>
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" To make <cr> select the first completion item and confirm
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
+
 
