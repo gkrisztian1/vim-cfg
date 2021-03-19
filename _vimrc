@@ -6,6 +6,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tpope/vim-surround'
+Plug 'sonph/onehalf', { 'rtp': 'vim' }
 call plug#end()
 
 if has('gui_running')
@@ -13,12 +14,32 @@ if has('gui_running')
   set guioptions-=T  "remove toolbar
   set guioptions-=r  "remove right-hand scroll bar
   set guioptions-=L  "remove left-hand scroll bar
-  set guifont=Consolas:h10:cANSI
+  "set guifont=Consolas:h10:cANSI
+  "set guifont=DejaVu_Sans_Mono_for_Powerline:h10:cANSI
+  set guifont=Fira_Mono_for_Powerline:h10:cANSI
 endif
 
-let mapleader=','
-nnoremap . :
-colorscheme darkblue
+" Reload the current file
+map <F10> <Esc>:w<CR>:so %<CR>
+imap <F10> <Esc>:w<CR>:so %<CR>
+
+
+let mapleader='é'
+imap jj <Esc>
+noremap <Up> <Nop>
+noremap <Down> <Nop>
+noremap <Left> <Nop>
+noremap <Right> <Nop>
+inoremap éé <Esc>:
+nnoremap éé :
+
+noremap 0 ^h " Jump to the first non-whitespace character
+noremap <C-0> $ " Jump to the last none-whitespace character
+nnoremap k gk
+nnoremap gk k
+nnoremap j gj
+nnoremap gj j
+colorscheme onehalfdark
 filetype plugin indent on  " Load plugins according to detected filetype.
 syntax on                  " Enable syntax highlighting.
 
@@ -58,6 +79,8 @@ set hidden
 set wildmenu "a better menu in command mode
 set clipboard=unnamed
 set encoding=utf-8
+set termencoding=utf-8
+set fileencoding=utf-8
 set lines=999 columns=999 " full windows
 set smartcase
 
@@ -91,18 +114,17 @@ nnoremap  <silent> <s-tab>  :if &modifiable && !&readonly && &modified <CR> :wri
 
 
 " AIRLINE 
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_sep = '?'
-let g:airline#extensions#tabline#left_alt_sep = '|'
-let g:airline#extensions#tabline#formatter = 'default'
+let g:airline_theme='bubblegum'
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+let g:airline_powerline_fonts = 1
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
 if !exists('g:airline_symbols')
         let g:airline_symbols = {}
 endif
-
-
+"let g:airline_left_sep = '▶️' 
+"let g:airline_right_sep = ''
 " COC-NVIM
 "
 " Confirm the completion with <CR>
