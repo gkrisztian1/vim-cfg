@@ -6,7 +6,6 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tpope/vim-surround'
-Plug 'dhruvasagar/vim-dotoo'
 call plug#end()
 
 if has('gui_running')
@@ -17,6 +16,8 @@ if has('gui_running')
   set guifont=Consolas:h10:cANSI
 endif
 
+let mapleader=','
+nnoremap . :
 colorscheme darkblue
 filetype plugin indent on  " Load plugins according to detected filetype.
 syntax on                  " Enable syntax highlighting.
@@ -43,7 +44,6 @@ set lazyredraw             " Only redraw when necessary.
 
 set splitbelow             " Open new windows below the current window.
 set splitright             " Open new windows right of the current window.
-
 set cursorline             " Find the current line quickly.
 set wrapscan               " Searches wrap around end-of-file.
 set report      =0         " Always report changed lines.
@@ -59,9 +59,11 @@ set wildmenu "a better menu in command mode
 set clipboard=unnamed
 set encoding=utf-8
 set lines=999 columns=999 " full windows
+set smartcase
 
 set shortmess=a
 set cmdheight=2
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PYTHON RELATED
@@ -78,7 +80,8 @@ autocmd FileType python imap <buffer> <F9> <esc>:w<CR>:exec '!python' shellescap
 " CtrlP
 "
 let g:ctrlp_cmd='CtrlP :pwd'
-
+let g:ctrlp_extensions=['line', 'tag']
+nnoremap <C-s> :CtrlPLine<CR>
 
 " KEYS
 tnoremap <Esc> <C-\><C-n> " Switch back to normal mode from terminal
@@ -108,4 +111,14 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " To make <cr> select the first completion item and confirm
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
 
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
 
