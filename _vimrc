@@ -1,12 +1,13 @@
 call plug#begin()
-Plug 'preservim/nerdtree'
+"Plug 'preservim/nerdtree'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'tpope/vim-surround'
 Plug 'sonph/onehalf', { 'rtp': 'vim' }
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
 call plug#end()
 
 if has('gui_running')
@@ -24,17 +25,18 @@ map <F10> <Esc>:w<CR>:so %<CR>
 imap <F10> <Esc>:w<CR>:so %<CR>
 
 
-let mapleader='é'
-imap jj <Esc>
+let mapleader='ö'
+inoremap jj <Esc>
 noremap <Up> <Nop>
 noremap <Down> <Nop>
 noremap <Left> <Nop>
 noremap <Right> <Nop>
-inoremap éé <Esc>:
-nnoremap éé :
+nnoremap ü {
+nnoremap ó }
+nnoremap <C-ü> (
+nnoremap <C-ó> )
+nnoremap , :
 
-noremap 0 ^h " Jump to the first non-whitespace character
-noremap <C-0> $ " Jump to the last none-whitespace character
 nnoremap k gk
 nnoremap gk k
 nnoremap j gj
@@ -84,6 +86,7 @@ set fileencoding=utf-8
 set lines=999 columns=999 " full windows
 set smartcase
 
+
 set shortmess=a
 set cmdheight=2
 
@@ -91,13 +94,14 @@ set cmdheight=2
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PYTHON RELATED
 
-set pythonthreedll=python38.dll
+set pythonthreedll=C:/Python/Python38-64/python38.dll
 
 " run script in normal/insert mode with F9
 autocmd FileType python map <buffer> <F9> :w<CR>:exec '!python' shellescape(@%, 1)<CR>i
 autocmd FileType python imap <buffer> <F9> <esc>:w<CR>:exec '!python' shellescape(@%, 1)<CR>i
-
-
+" Ipython with Ctrl-F9
+autocmd FileType python map <buffer> <C-F9> :w<CR>:exec '!ipython -i' shellescape(@%, 1)<CR>i
+autocmd FileType python imap <buffer> <C-F9> <esc>:w<CR>:exec '!ipython -i' shellescape(@%, 1)<CR>i
 
 
 " CtrlP
@@ -114,9 +118,11 @@ nnoremap  <silent> <s-tab>  :if &modifiable && !&readonly && &modified <CR> :wri
 
 
 " AIRLINE 
+let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme='bubblegum'
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#buffer_idx_mode = 1
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
@@ -144,3 +150,12 @@ nmap <silent> gr <Plug>(coc-references)
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
 
+
+
+"""
+"""
+""" MARKDOWN
+let g:vim_markdown_toc_autofit = 1
+set conceallevel=2
+let g:vim_markdown_math = 1
+let g:vim_markdown_new_list_item_indent = 2
