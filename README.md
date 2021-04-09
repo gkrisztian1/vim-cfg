@@ -24,6 +24,6 @@ git clone https://github.com/gkrisztian1/vim-cfg.git $vimdir
 
 6. install [Python](https://www.python.org/downloads/) if you haven't already. (64 bit)
 7. install [node.js](https://nodejs.org/en/) (for language servers)
-8. edit ```vimdir/_vimrc```: ```$vimdir/vim-cfg/_vimrc```
+8. edit ```vimdir/_vimrc```: ```source $vimdir/vim-cfg/_vimrc```
 9. open vim then ```:PlugInstall``
 10. make sure that the ```_vimrc``` is pointing to the right ``python3x.dll``
