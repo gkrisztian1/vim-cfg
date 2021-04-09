@@ -94,7 +94,7 @@ set cmdheight=2
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PYTHON RELATED
 
-set pythonthreedll=C:/Python/Python38-64/python38.dll
+set pythonthreedll=C:\Python\Python38\python38.dll
 
 " run script in normal/insert mode with F9
 autocmd FileType python map <buffer> <F9> :w<CR>:exec '!python' shellescape(@%, 1)<CR>i
