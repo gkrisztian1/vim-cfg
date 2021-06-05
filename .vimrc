@@ -1,24 +1,13 @@
 call plug#begin()
 "Plug 'preservim/nerdtree'
 Plug 'tpope/vim-fugitive'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+"Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline-themes'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'sonph/onehalf', { 'rtp': 'vim' }
 Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
 call plug#end()
-
-if has('gui_running')
-  set guioptions-=m  "remove menu bar
-  set guioptions-=T  "remove toolbar
-  set guioptions-=r  "remove right-hand scroll bar
-  set guioptions-=L  "remove left-hand scroll bar
-  "set guifont=Consolas:h10:cANSI
-  "set guifont=DejaVu_Sans_Mono_for_Powerline:h10:cANSI
-  set guifont=Fira_Mono_for_Powerline:h10:cANSI
-endif
 
 " Reload the current file
 map <F10> <Esc>:w<CR>:so %<CR>
@@ -41,7 +30,8 @@ nnoremap k gk
 nnoremap gk k
 nnoremap j gj
 nnoremap gj j
-colorscheme onehalfdark
+
+"colorscheme onehalfdark
 filetype plugin indent on  " Load plugins according to detected filetype.
 syntax on                  " Enable syntax highlighting.
 
@@ -97,11 +87,21 @@ set cmdheight=2
 set pythonthreedll=C:\Python\Python38\python38.dll
 
 " run script in normal/insert mode with F9
-autocmd FileType python map <buffer> <F9> :w<CR>:exec '!python' shellescape(@%, 1)<CR>i
-autocmd FileType python imap <buffer> <F9> <esc>:w<CR>:exec '!python' shellescape(@%, 1)<CR>i
+autocmd FileType python map <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>i
+autocmd FileType python imap <buffer> <F9> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>i
 " Ipython with Ctrl-F9
 autocmd FileType python map <buffer> <C-F9> :w<CR>:exec '!ipython -i' shellescape(@%, 1)<CR>i
 autocmd FileType python imap <buffer> <C-F9> <esc>:w<CR>:exec '!ipython -i' shellescape(@%, 1)<CR>i
+
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
 
 
 " CtrlP
@@ -115,47 +115,3 @@ tnoremap <Esc> <C-\><C-n> " Switch back to normal mode from terminal
 " switching between buffers with TAB ans Shift+TAB
 nnoremap  <silent>   <tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bnext<CR>
 nnoremap  <silent> <s-tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bprevious<CR>
-
-
-" AIRLINE 
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme='bubblegum'
-let g:airline#extensions#tabline#formatter = 'unique_tail'
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#buffer_idx_mode = 1
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-if !exists('g:airline_symbols')
-        let g:airline_symbols = {}
-endif
-"let g:airline_left_sep = '▶️' 
-"let g:airline_right_sep = ''
-" COC-NVIM
-"
-" Confirm the completion with <CR>
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-
-" To make <cr> select the first completion item and confirm
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
-
-
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-
-" Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
-
-
-
-"""
-"""
-""" MARKDOWN
-let g:vim_markdown_toc_autofit = 1
-set conceallevel=2
-let g:vim_markdown_math = 1
-let g:vim_markdown_new_list_item_indent = 2

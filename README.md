@@ -13,17 +13,16 @@ set vimdir=C:\Vim
 git clone https://github.com/gkrisztian1/vim-cfg.git $vimdir
 ```
 4. install [vim-plug](https://github.com/junegunn/vim-plug):
-    Windows(Powershell)
-    ```bash
-    iwr -useb https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim |`
-        ni $HOME/vimfiles/autoload/plug.vim -Force
     ```
-
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    ```
+ 
 5. install [powerline fonts](https://github.com/powerline/fonts)
     or drag and drop the included FuraMono-for-Powerline fonts.
 
 6. install [Python](https://www.python.org/downloads/) if you haven't already. (64 bit)
 7. install [node.js](https://nodejs.org/en/) (for language servers)
+7.1 install coc-pyright: ```CocInstall coc-pyright```
 8. edit ```vimdir/_vimrc```: ```source $vimdir/vim-cfg/_vimrc```
 9. open vim then ```:PlugInstall``
-10. make sure that the ```_vimrc``` is pointing to the right ``python3x.dll``
