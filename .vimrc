@@ -14,7 +14,7 @@ imap <F10> <Esc>:w<CR>:so %<CR>
 
 
 let mapleader='ö'
-inoremap jj <Esc>
+inoremap <nowait> jj <Esc>
 noremap <Up> <Nop>
 noremap <Down> <Nop>
 noremap <Left> <Nop>
@@ -29,6 +29,7 @@ nnoremap k gk
 nnoremap gk k
 nnoremap j gj
 nnoremap gj j
+
 
 colorscheme onehalfdark
 filetype plugin indent on  " Load plugins according to detected filetype.
