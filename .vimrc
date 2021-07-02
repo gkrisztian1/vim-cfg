@@ -6,6 +6,9 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'sonph/onehalf', { 'rtp': 'vim' }
 Plug 'godlygeek/tabular'
 Plug 'jmcantrell/vim-virtualenv'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
 call plug#end()
 
 " Reload the current file
@@ -13,25 +16,27 @@ map <F10> <Esc>:w<CR>:so %<CR>
 imap <F10> <Esc>:w<CR>:so %<CR>
 
 
-let mapleader='ö'
 inoremap <nowait> jj <Esc>
 noremap <Up> <Nop>
 noremap <Down> <Nop>
 noremap <Left> <Nop>
 noremap <Right> <Nop>
-nnoremap ü {
-nnoremap ó }
-nnoremap <C-ü> (
-nnoremap <C-ó> )
-nnoremap , :
+nmap ü {
+nmap ó }
+nmap , :
 
 nnoremap k gk
 nnoremap gk k
 nnoremap j gj
 nnoremap gj j
 
+nmap ú [
+nmap <C-8> [m
+nmap <C-9> ]m
+nmap ű ]
 
-colorscheme onehalfdark
+
+colorscheme onehalflight
 filetype plugin indent on  " Load plugins according to detected filetype.
 syntax on                  " Enable syntax highlighting.
 
@@ -50,7 +55,7 @@ set showmode               " Show current mode in command-line.
 set showcmd                " Show already typed keys when more are expected.
 
 set incsearch              " Highlight while searching with / or ?.
-set hlsearch               " Keep matches highlighted.
+set nohlsearch               " Keep matches highlighted.
 
 set ttyfast                " Faster redrawing.
 set lazyredraw             " Only redraw when necessary.
@@ -116,10 +121,14 @@ nnoremap  <silent>   <tab>  :if &modifiable && !&readonly && &modified <CR> :wri
 nnoremap  <silent> <s-tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bprevious<CR>
 
 
-" Powerline
-set  rtp+=~/.local/lib/python3.8/site-packages/powerline/bindings/vim
-set laststatus=2
+" Airline
+let g:airline#extensions#tabline#enabled = 1
 set t_Co=256
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '>'
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+let g:airline_powerline_fonts = 1
+let g:airline_theme='sol'
 
 " Cursor
 if has("autocmd")
@@ -131,4 +140,25 @@ if has("autocmd")
 \   silent execute '!echo -ne "\e[4 q"' | redraw! |
 \ endif
 au VimLeave * silent execute '!echo -ne "\e[ q"' | redraw!
+endif
+
+
+" COC
+
+set completeopt=longest,menuone
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+if exists('*complete_info')
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 endif
