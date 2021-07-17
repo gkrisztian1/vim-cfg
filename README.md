@@ -31,3 +31,11 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 ## Powerline
 
 https://www.tecmint.com/powerline-adds-powerful-statuslines-and-prompts-to-vim-and-bash/
+
+## CocConfig
+```
+"suggest.noselect": false
+```
+
+## Keys
+In ```gnome-tweak-tools``` Keyboard & Mouse -> Additional Layout Options -> Ctrl position -> Swap Ctrl and Caps Lock
