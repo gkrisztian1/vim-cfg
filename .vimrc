@@ -16,7 +16,7 @@ let mapleader='-'
 " Reload the current file
 nnoremap <leader>s :w<CR>:so %<CR>
 inoremap <leader>s <Esc>:w<CR>:so %<CR>
-
+nnoremap <leader>v :e ~/.vimrc<CR>
 
 inoremap <nowait> jk <Esc>
 noremap <Up> <Nop>
@@ -95,11 +95,15 @@ set cmdheight=2
 
 
 " run script in normal/insert mode with F9
-autocmd FileType python map <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
-autocmd FileType python imap <buffer> <F9> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
+autocmd FileType python nnoremap <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
+autocmd FileType python inoremap <buffer> <F9> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
+
+autocmd FileType python nnoremap <buffer> <F12> :w<CR>:exec '!python3 -m pytest' shellescape(@%, 1)<CR>
+autocmd FileType python inoremap <buffer> <F12> <esc>:w<CR>:exec '!python3 -m pytest' shellescape(@%, 1)<CR>
+
 " Ipython with Ctrl-F9
-autocmd FileType python map <buffer> <C-F9> :w<CR>:exec '!ipython -i' shellescape(@%, 1)<CR>i
-autocmd FileType python imap <buffer> <C-F9> <esc>:w<CR>:exec '!ipython -i' shellescape(@%, 1)<CR>i
+autocmd FileType python nnoremap <buffer> <C-F9> :w<CR>:exec '!ipython -i' shellescape(@%, 1)<CR>i
+autocmd FileType python inoremap <buffer> <C-F9> <esc>:w<CR>:exec '!ipython -i' shellescape(@%, 1)<CR>i
 
 
 " GoTo code navigation.
@@ -227,7 +231,6 @@ let g:UltiSnipsJumpForwardTrigger="<c-n>"
 let g:UltiSnipsJumpBackwardTrigger="<c-b>"
 
 " AUTOCMDS
-autocmd BufWritePre *.py :silent normal gg=G
 autocmd FileType python let b:coc_root_patterns = ['.git', 'venv']
 autocmd FileType python :iabbrev <buffer> if if:<left>
 autocmd FileType python :iabbrev <buffer> class class:<left>
