@@ -39,16 +39,25 @@ nnoremap ű ]
 "nmap <leader>e ]M
 "nmap <leader>r ]]
 
+inoremap <F8> <C-o>zm
+inoremap <F32> <C-o>zr
+nnoremap <F8> zm
+noremap <F32> zr
+nnoremap <Space> za
+
 colorscheme PaperColor
 set background=light
 filetype plugin indent on  " Load plugins according to detected filetype.
 syntax on                  " Enable syntax highlighting.
 
 set autoindent             " Indent according to previous line.
+set foldmethod=indent      " code folding for python
+set foldnestmax=2          " don't fold class methods
 set expandtab              " Use spaces instead of tabs.
 set softtabstop =2         " Tab key indents by 2 spaces.
 set shiftwidth  =2         " >> indents by 2 spaces.
 set shiftround             " >> indents to next multiple of 'shiftwidth'.
+set autoread
 
 set backspace   =indent,eol,start  " Make backspace work as you would expect.
 set hidden                 " Switch between buffers without having to save first.
@@ -73,7 +82,7 @@ set synmaxcol   =200       " Only highlight the first 200 columns.
 
 set nobackup
 set noswapfile
-set number
+set number relativenumber
 set ruler
 syntax on
 set hidden
@@ -95,11 +104,11 @@ set cmdheight=2
 
 
 " run script in normal/insert mode with F9
-autocmd FileType python nnoremap <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
-autocmd FileType python inoremap <buffer> <F9> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
+autocmd FileType python nnoremap <buffer> <F9> :w<CR>:exec '!python' shellescape(@%, 1)<CR>
+autocmd FileType python inoremap <buffer> <F9> <esc>:w<CR>:exec '!python' shellescape(@%, 1)<CR>
 
-autocmd FileType python nnoremap <buffer> <F12> :w<CR>:exec '!python3 -m pytest' shellescape(@%, 1)<CR>
-autocmd FileType python inoremap <buffer> <F12> <esc>:w<CR>:exec '!python3 -m pytest' shellescape(@%, 1)<CR>
+autocmd FileType python nnoremap <buffer> <F12> :w<CR>:exec '!python -m pytest' shellescape(@%, 1)<CR>
+autocmd FileType python inoremap <buffer> <F12> <esc>:w<CR>:exec '!python -m pytest' shellescape(@%, 1)<CR>
 
 " Ipython with Ctrl-F9
 autocmd FileType python nnoremap <buffer> <C-F9> :w<CR>:exec '!ipython -i' shellescape(@%, 1)<CR>i
